@@ -1,7 +1,9 @@
 ---
 # TODO Chocolatey Package is currently awaiting release
-#- include_tasks: install_windows.yml
+#- name: Install OCS Inventory NG Windows Agent
+#  include_tasks: install_windows.yml
 #  when: ansible_os_family == "Windows"
 
-- include_tasks: install_unix_debian.yml
+- name: Install OCS Inventory NG Unix Agent (Debian/Ubuntu)
+  include_tasks: install_unix_debian.yml
   when: ansible_os_family == "Debian"
