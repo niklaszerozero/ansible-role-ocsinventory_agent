@@ -1,0 +1,22 @@
+---
+dependencies: []
+
+galaxy_info:
+  role_name: ocsinventory_agent
+  author: Niklas Vlach
+  description: Installs OCS Inventory NG Agent using the systems package manager.
+  license: "MIT"
+  min_ansible_version: 2.10
+  platforms:
+    - name: Debian
+      versions:
+        - all
+    - name: Ubuntu
+      versions:
+        - all
+  galaxy_tags:
+    - system
+    - ocs
+    - inventory
+    - ocsinventory
+    - agent

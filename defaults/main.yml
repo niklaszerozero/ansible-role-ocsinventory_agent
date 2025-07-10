@@ -1,0 +1,18 @@
+---
+# GLOBAL Variables
+ocs_server: http://ocsinventory-ng/ocsinventory
+ocs_basedir: /var/lib/ocsinventory-agent
+ocs_configdir: /etc/ocsinventory
+ocs_logfile: /var/log/ocsinventory-agent.log
+ocs_ssl: false
+ocs_ca_file: ""
+ocs_ca: "{{ ocs_configdir }}/cacert.pem"
+ocs_tag: ""
+ocs_nosoftware: 0
+ocs_no_ssl_verify: false
+ocs_prolog_freq: 4
+
+# debian
+ocs_apt_release: stable
+ocs_apt_repository: "deb http://deb.ocsinventory-ng.org/{{ ansible_distribution | lower }} {{ ocs_apt_release }} main"
+ocs_apt_gpg_key: https://deb.ocsinventory-ng.org/pubkey.gpg

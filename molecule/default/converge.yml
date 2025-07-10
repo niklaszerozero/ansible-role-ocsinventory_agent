@@ -1,0 +1,19 @@
+---
+- name: Converge
+  hosts: all
+  #become: true
+
+  vars:
+    ocs_server: http://ocsinventory-ng/ocsinventory
+    ocs_ssl: true
+    ocs_ca_file: "files/cacert.pem"
+    ocs_prolog_freq: 6
+
+  pre_tasks:
+    - name: Update apt cache.
+      apt: update_cache=true cache_valid_time=1200
+      when: ansible_os_family == 'Debian'
+      changed_when: false
+
+  roles:
+    - role: niklaszerozero.ocsinventory_agent

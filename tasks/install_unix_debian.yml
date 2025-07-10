@@ -1,0 +1,62 @@
+---
+- name: Install prerequisites
+  ansible.builtin.apt:
+    name: cron-apt
+    state: present
+    update_cache: true
+
+- name: Download OCS Inventory GPG key
+  ansible.builtin.get_url:
+    url: https://deb.ocsinventory-ng.org/pubkey.gpg
+    dest: /tmp/ocs.pubkey.gpg
+    mode: "0644"
+
+- name: Convert GPG key to dearmored format
+  ansible.builtin.command:
+    cmd: gpg --dearmor -o /etc/apt/trusted.gpg.d/ocs-archive-keyring.gpg /tmp/ocs.pubkey.gpg
+  become: true
+  args:
+    creates: /etc/apt/trusted.gpg.d/ocs-archive-keyring.gpg
+
+- name: Set OCS Inventory APT repository
+  ansible.builtin.apt_repository:
+    repo: "{{ ocs_apt_repository }}"
+    filename: ocsinventory
+    state: present
+
+- name: Install ocsinventory-agent
+  ansible.builtin.apt:
+    name: ocsinventory-agent
+    state: present
+    update_cache: yes
+
+- name: Make sure the configdir is present
+  file:
+    path: "{{ ocs_configdir }}"
+    state: directory
+
+- name: Template the configuration file
+  ansible.builtin.template:
+    src: templates/ocsinventory-agent.cfg.j2
+    dest: "{{ ocs_configdir }}/ocsinventory-agent.cfg"
+
+- name: Copy the SSL Certificate
+  ansible.builtin.copy:
+    src: "{{ ocs_ca_file }}"
+    dest: "{{ ocs_ca }}"
+  when: ocs_ssl == true
+
+- name: Set cron job for ocsinventory-agent
+  ansible.builtin.cron:
+    name: "Run OCS Inventory Agent"
+    user: root
+    job: "/usr/bin/ocsinventory-agent > /dev/null 2>&1"
+    disabled: "{{ ocs_prolog_freq | int > 0 }}"
+    minute: "{{ 59 | random(seed=inventory_hostname) }}"
+    hour: "*/{{ ocs_prolog_freq }}"
+    state: present
+
+- name: Run ocsinventory-agent
+  ansible.builtin.command:
+    cmd: ocsinventory-agent
+  changed_when: false
