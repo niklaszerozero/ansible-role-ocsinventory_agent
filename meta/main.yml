@@ -3,6 +3,7 @@ dependencies: []
 
 galaxy_info:
   role_name: ocsinventory_agent
+  namespace: niklaszerozero
   author: Niklas Vlach
   description: Installs OCS Inventory NG Agent using the systems package manager.
   license: "MIT"
