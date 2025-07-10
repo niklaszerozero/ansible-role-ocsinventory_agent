@@ -8,6 +8,7 @@
     ocs_ssl: true
     ocs_ca_file: "cacert.pem"
     ocs_prolog_freq: 6
+    ocs_now: false
 
   pre_tasks:
     - name: Update apt cache.

@@ -83,6 +83,12 @@ Defines how often the agent should contact the server, in hours.
 Setting this value to 0 will disable the cron Job.  
 The minute when this job will be executes is randomized to lower the strain on the network.
 
+```yaml
+ocs_now: true
+```
+
+Set to true executes an inventory task immediately after installation.
+
 ### Debian/Ubuntu specific
 
 ```yaml

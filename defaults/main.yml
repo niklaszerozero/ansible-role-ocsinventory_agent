@@ -11,6 +11,7 @@ ocs_tag: ""
 ocs_nosoftware: 0
 ocs_no_ssl_verify: false
 ocs_prolog_freq: 4
+ocs_now: true
 
 # debian
 ocs_apt_release: stable

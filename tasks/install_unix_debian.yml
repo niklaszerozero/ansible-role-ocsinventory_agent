@@ -6,6 +6,7 @@
       - cron-apt
     state: present
     update_cache: true
+  become: true
 
 - name: Download OCS Inventory GPG key
   ansible.builtin.get_url:
@@ -31,6 +32,7 @@
     name: ocsinventory-agent
     state: present
     update_cache: yes
+  become: true
 
 - name: Make sure the configdir is present
   file:
@@ -62,3 +64,4 @@
   ansible.builtin.command:
     cmd: ocsinventory-agent
   changed_when: false
+  when: ocs_now == true
