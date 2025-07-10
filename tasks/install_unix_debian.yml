@@ -1,7 +1,9 @@
 ---
 - name: Install prerequisites
   ansible.builtin.apt:
-    name: cron-apt
+    name:
+      - gpg
+      - cron-apt
     state: present
     update_cache: true
 
