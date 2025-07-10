@@ -1,12 +1,12 @@
 ---
 - name: Converge
   hosts: all
-  #become: true
+  become: true
 
   vars:
     ocs_server: http://ocsinventory-ng/ocsinventory
     ocs_ssl: true
-    ocs_ca_file: "files/cacert.pem"
+    ocs_ca_file: "cacert.pem"
     ocs_prolog_freq: 6
 
   pre_tasks:
