@@ -3,6 +3,7 @@
   ansible.builtin.apt:
     name:
       - gpg
+      - cron
       - cron-apt
     state: present
     update_cache: true
@@ -59,6 +60,7 @@
     minute: "{{ 59 | random(seed=inventory_hostname) }}"
     hour: "*/{{ ocs_prolog_freq }}"
     state: present
+  become: true
 
 - name: Run ocsinventory-agent
   ansible.builtin.command:
