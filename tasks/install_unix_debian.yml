@@ -56,10 +56,9 @@
     name: "Run OCS Inventory Agent"
     user: root
     job: "/usr/bin/ocsinventory-agent > /dev/null 2>&1"
-    disabled: "{{ ocs_prolog_freq | int > 0 }}"
     minute: "{{ 59 | random(seed=inventory_hostname) }}"
     hour: "*/{{ ocs_prolog_freq }}"
-    state: present
+    state: "{{ 'present' if ( ocs_prolog_freq | int) > 0 else 'absent' }}"
   become: true
 
 - name: Run ocsinventory-agent
